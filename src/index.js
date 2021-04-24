@@ -1,10 +1,34 @@
-import "./styles.css";
+const api = "https://randomuser.me/api";
+const addUser = document.getElementById("user-btn");
+//const mainApp = document.getElementById("app");
+const userList = document.getElementById("user-list");
+const searchInput = document.getElementById("search");
+const appState = [];
 
-document.getElementById("app").innerHTML = `
-<h1>Hello Vanilla!</h1>
-<div>
-  We use the same configuration as Parcel to bundle this sandbox, you can find more
-  info about Parcel 
-  <a href="https://parceljs.org" target="_blank" rel="noopener noreferrer">here</a>.
-</div>
-`;
+addUser.addEventListener("click", async () => {
+  const userData = await fetch(api, {
+    method: "GET"
+  });
+  const userJson = await userData.json();
+  // console.log(userJson.results[0]);
+  const user = userJson.results[0];
+  appState.push(user);
+  // console.log(appState);
+  domRenderer(appState);
+});
+const domRenderer = (stateArr) => {
+  userList.innerHtml = null;
+  stateArr.forEach((userObj) => {
+    const userEl = document.createElement("div");
+    userEl.innerHTML = `<div>
+  ${userObj.name.title}  ${userObj.name.first}  ${userObj.name.last}
+  </div>`;
+    userList.appendChild(userEl);
+  });
+};
+searchInput.addEventListener("keyup", (e) => {
+  const filteredAppState = appState.filter((user) =>
+    user.name.first.toLowerCase().includes(searchInput.value.toLowerCase())
+  );
+  domRenderer(filteredAppState);
+});

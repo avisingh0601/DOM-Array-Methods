@@ -17,11 +17,11 @@ addUser.addEventListener("click", async () => {
   domRenderer(appState);
 });
 const domRenderer = (stateArr) => {
-  userList.innerHtml = null;
+  userList.innerHTML = null;
   stateArr.forEach((userObj) => {
     const userEl = document.createElement("div");
     userEl.innerHTML = `<div>
-  ${userObj.name.title}  ${userObj.name.first}  ${userObj.name.last}
+  ${userObj.name.title} ${userObj.name.first} ${userObj.name.last}
   </div>`;
     userList.appendChild(userEl);
   });

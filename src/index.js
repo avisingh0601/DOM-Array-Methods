@@ -10,7 +10,8 @@ const appState = [];
 
 class User {
   constructor(title, firstname, lastname, gender, email) {
-    this.name = `${title} ${firstname} ${lastname}`;
+    this.title = `${title}`;
+    this.name = `${firstname} ${lastname}`;
     this.email = email;
     this.gender = gender;
   }
@@ -41,7 +42,7 @@ const domRenderer = (stateArr) => {
   stateArr.forEach((userObj) => {
     const userEl = document.createElement("div");
     userEl.innerHTML = `<div>
-    Name: ${userObj.name}
+    Name:${userObj.title} ${userObj.name}
   <ol>
   <li>${userObj.gender}</li>
   <li>${userObj.email}</li>
